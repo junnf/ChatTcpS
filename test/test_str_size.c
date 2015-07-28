@@ -1,8 +1,9 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include "lib/unp.h"
+
 int main(void){
   char a[125]="aaaa";
-  printf("%d\n",sizeof(a));
-  printf("%d",strlen(a));
+  //bzero(a,125);
+  printf("%s",a);
+  //printf("%d\n",sizeof(a));
+  //printf("%d",strlen(a));
 }

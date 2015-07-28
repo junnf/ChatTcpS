@@ -6,6 +6,7 @@ str_clii(FILE *fp,char *name ,int sockfd)
 	char	sendline[MAXLINE], recvline[MAXLINE];
 
   writen(sockfd, name, strlen(name));
+
 	while (fgets(sendline, MAXLINE, fp) != NULL) {
 
 		//writen(sockfd, sendline, 1);

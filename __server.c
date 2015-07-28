@@ -68,9 +68,10 @@ again:
         if(i_user_judge == 0){
           i_user_judge = 1;
           bcopy(buf, user, strlen(buf));
+          bzero(buf,MAXLINE);
+//          printf("%s",user);
         }
         //test
-        printf("%s",user);
         writen(sockfd, buf, n);
     }
     if (n<0 && errno == EINTR)

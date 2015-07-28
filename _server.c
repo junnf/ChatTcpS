@@ -31,11 +31,11 @@ int main(int argc,char **argv){
     for(;;){
         clilen = sizeof(cliaddr);
         _connfd = accept(_sockfd, (SA *)&cliaddr, &clilen);
-        if((childpid = fork()) == 0){
-          close(_sockfd);
+        /// if((childpid = fork()) == 0){
+       ///   close(_sockfd);
           str_echo(_connfd);
-          exit(0);
-        }
+        ///  exit(0);
+        
         close(_connfd);
     }
 
@@ -53,11 +53,24 @@ int Socket(int family, int type, int protocol){
 //echo string
 void str_echo(int sockfd){
     ssize_t n;
+    short i_user_judge = 0;
     char buf[MAXLINE];
+    char user[25];
+    char nde[3] = ":";
 again:
     while((n=read(sockfd,buf,MAXLINE)) > 0){
+        if(i_user_judge == 0){
+            i_user_judge = 1;
+            bcopy(buf, user, strlen(buf));
+            strcat(user,nde);
+            bzero(buf,MAXLINE);
+        }
+        //strcat(user,nde);
+        writen(sockfd, user, strlen(user));
         writen(sockfd, buf, n);
-        printf("%s",buf);
+        //bzero(sockfd,MAXLINE);
+        //writen(sockfd, buf, n);
+        //printf("%s",buf);
     }
     if (n<0 && errno == EINTR)
         goto again;
