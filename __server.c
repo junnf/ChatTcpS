@@ -1,9 +1,17 @@
 #include  "lib/unp.h"
 #include  "error.h"
 #include "writen.h"
+
+//comp
+#define MEM_FREE 1
+//mutex
+#define 
 //
 //int Socket(int family, int type, int protocol);
 //void Listen(int fd, int backlog);
+
+char buff_word[MAXLINE];
+char *point_buff = buff_word;
 
 int main(int argc,char **argv){
 

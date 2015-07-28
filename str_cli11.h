@@ -1,15 +1,16 @@
 #include	"lib/unp.h"
 
 void
-str_cli(FILE *fp, int sockfd)
+str_cli(FILE *fp,char *name ,int sockfd)
 {
 	char	sendline[MAXLINE], recvline[MAXLINE];
 
+  writen(sockfd, name, strlen(name));
 	while (fgets(sendline, MAXLINE, fp) != NULL) {
 
-		writen(sockfd, sendline, 1);
-		sleep(1);
-		writen(sockfd, sendline+1, strlen(sendline)-1);
+		//writen(sockfd, sendline, 1);
+		//sleep(1);
+		writen(sockfd, sendline, strlen(sendline));
 
 		if (readline(sockfd, recvline, MAXLINE) == 0)
 			err_quit("str_cli: server terminated prematurely");

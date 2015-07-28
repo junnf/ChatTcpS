@@ -57,6 +57,7 @@ void str_echo(int sockfd){
 again:
     while((n=read(sockfd,buf,MAXLINE)) > 0){
         writen(sockfd, buf, n);
+        printf("%s",buf);
     }
     if (n<0 && errno == EINTR)
         goto again;
