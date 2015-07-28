@@ -1,7 +1,7 @@
 #include	"lib/unp.h"
 
 void
-str_cli(FILE *fp,char *name ,int sockfd)
+str_clii(FILE *fp,char *name ,int sockfd)
 {
 	char	sendline[MAXLINE], recvline[MAXLINE];
 

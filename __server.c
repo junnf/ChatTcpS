@@ -5,7 +5,7 @@
 //comp
 #define MEM_FREE 1
 //mutex
-#define 
+//#define 
 //
 //int Socket(int family, int type, int protocol);
 //void Listen(int fd, int backlog);
@@ -59,9 +59,18 @@ int Socket(int family, int type, int protocol){
 //echo string
 void str_echo(int sockfd){
     ssize_t n;
+    //short judge user or common-message
+    short i_user_judge=0;
     char buf[MAXLINE];
+    char user[25];
 again:
     while((n=read(sockfd,buf,MAXLINE)) > 0){
+        if(i_user_judge == 0){
+          i_user_judge = 1;
+          bcopy(buf, user, strlen(buf));
+        }
+        //test
+        printf("%s",user);
         writen(sockfd, buf, n);
     }
     if (n<0 && errno == EINTR)
