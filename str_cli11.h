@@ -6,7 +6,7 @@ str_clii(FILE *fp,char *name ,int sockfd)
 	char	sendline[MAXLINE], recvline[MAXLINE];
 
   writen(sockfd, name, strlen(name));
-
+  fputs("Please Enter,and confirm your username!",stdout);
 	while (fgets(sendline, MAXLINE, fp) != NULL) {
 
 		//writen(sockfd, sendline, 1);
@@ -17,5 +17,6 @@ str_clii(FILE *fp,char *name ,int sockfd)
 			err_quit("str_cli: server terminated prematurely");
 
 		fputs(recvline, stdout);
+    fputs("\n",stdout);
 	}
 }

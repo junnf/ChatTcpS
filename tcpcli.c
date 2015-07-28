@@ -15,15 +15,11 @@ main(int argc, char **argv)
 		err_quit("usage: tcpcli <IPaddress>, UserName:no Input");
   user = argv[2];
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(9999);
 	inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
-
 	connect(sockfd, (SA *) &servaddr, sizeof(servaddr));
-
 	str_clii(stdin, user, sockfd);		/* do it all */
-
 	exit(0);
 }

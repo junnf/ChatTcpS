@@ -1,6 +1,9 @@
 #include  "lib/unp.h"
 #include  "error.h"
 #include "writen.h"
+
+static char _user[50];
+char *_u_pointer = _user;
 //
 //int Socket(int family, int type, int protocol);
 //void Listen(int fd, int backlog);
@@ -62,6 +65,8 @@ again:
         if(i_user_judge == 0){
             i_user_judge = 1;
             bcopy(buf, user, strlen(buf));
+            memcpy(_user, buf, strlen(buf));
+            _u_pointer = _u_pointer + strlen(buf);
             strcat(user,nde);
             bzero(buf,MAXLINE);
         }
