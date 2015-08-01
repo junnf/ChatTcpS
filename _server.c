@@ -4,6 +4,8 @@
 
 static char _user[50];
 char *_u_pointer = _user;
+
+char mesg[128][128];
 //
 //int Socket(int family, int type, int protocol);
 //void Listen(int fd, int backlog);
