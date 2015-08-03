@@ -1,8 +1,10 @@
 #include<stdio.h>
 char _buffer[256][256];
 char (*_p_buff)[256] = _buffer;
+typedef int Item;
 //int enqueue(char (*mesg)[256]);
 void ttt(char mesg[][256]){
+    Item a = 1;
     mesg = "aaaaa";
     printf("%s\n",mesg);
     mesg++ ;
