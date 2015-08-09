@@ -1,10 +1,11 @@
 #include  "lib/unp.h"
 #include  "error.h"
 #include "writen.h"
+#include <unistd.h>
 
 static char _user[50];
 char *_u_pointer = _user;
-
+void _str_echo(int sockfd,int fd1[2],int fd2[2]);
 char mesg[128][128];
 //
 //int Socket(int family, int type, int protocol);
@@ -33,14 +34,27 @@ int main(int argc,char **argv){
     bind(_sockfd, (SA *) &servaddr, sizeof(servaddr));
     //LISTENQ define maxium connections(in unp.h)
     listen(_sockfd,LISTENQ);
-    for(;;){
+    //1  p:read c:write
+    //2 p:write c:read
+    int pipe_1[2];
+    int pipe_2[2];
+    if(pipe(pipe_1) < 0 ){
+        perror("pipe");
+        exit(1);
+    }
+    if(pipe(pipe_2) < 0){
+        perror("pipe");
+        exit(1);
+    }
+
+    for(;;){    
         clilen = sizeof(cliaddr);
         _connfd = accept(_sockfd, (SA *)&cliaddr, &clilen);
-        /// if((childpid = fork()) == 0){
-       ///   close(_sockfd);
+         if((childpid = fork()) == 0){
+          close(_sockfd);
           str_echo(_connfd);
-        ///  exit(0);
-        
+          exit(0);
+         }
         close(_connfd);
     }
 
@@ -56,7 +70,7 @@ int Socket(int family, int type, int protocol){
 }
 
 //echo string
-void str_echo(int sockfd){
+void _str_echo(int sockfd,int fd1[2],int fd2[2]){
     ssize_t n;
     short i_user_judge = 0;
     char buf[MAXLINE];

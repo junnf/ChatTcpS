@@ -10,6 +10,7 @@ problem 3: 处理消息数据结构(循环队列)
 
 
 
-PROBLEM: broadcast udp?
+PROBLEM: broadcast udp?   X
 
-实现双人聊天
+实现双人聊天(tcp)
+use: two-PIPE
