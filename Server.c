@@ -6,7 +6,17 @@
 static char _user[50];
 char *_u_pointer = _user;
 void _str_echo(int sockfd,int fd1[2],int fd2[2]);
+
+/*
+  [1]some message
+  [2]some message
+  ...
+  ...
+   */
+
 char mesg[128][128];
+char (*p_mesg_user1)[256] = mesg;
+char (*p_mesg_user2)[256] = mesg;
 
 //two person Chat-
 //
@@ -59,7 +69,7 @@ int main(int argc,char **argv){
               
           }
           close(_sockfd);
-          str_echo(_connfd);
+          //str_echo(_connfd);
           exit(0);
          }
         close(_connfd);
