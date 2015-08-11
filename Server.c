@@ -3,10 +3,10 @@
 #include "writen.h"
 #include <unistd.h>
 
-static char _user[50];
-char *_u_pointer = _user;
-void _str_echo(int sockfd,int fd1[2],int fd2[2]);
-
+//static char _user[50];
+//char *_u_pointer = _user;
+void _str_echo(int sockfd);
+void deal_sockset_echo(int *fd_sockset, int sockfd);
 /*
   [1]some message
   [2]some message
@@ -14,9 +14,10 @@ void _str_echo(int sockfd,int fd1[2],int fd2[2]);
   ...
    */
 
-char mesg[128][128];
+/*char mesg[128][128];
 char (*p_mesg_user1)[256] = mesg;
 char (*p_mesg_user2)[256] = mesg;
+*/
 
 //two person Chat-
 //
@@ -86,8 +87,33 @@ int Socket(int family, int type, int protocol){
     return(n);
 }
 
+void deal_sockset_echo(int *fd_sockset, int sockfd){
+  ssize_t n;
+  short _sock_count = 0;
+  char buf[MAXLINE];
+again_ :
+    while((n = read(sockfd,buf,MAXLINE )) > 0){
+        
+       /*//user-name
+       writen(sockfd, user, strlen(user));
+       */
+      for(;_sock_count>0;_sock_count++){
+          writen( fd_sockset[_sock_count], buf, n );
+      }
+      //
+      _sock_count = 0;
+    }
+    if (n<0 && errno == EINTR){
+        goto again_;
+    }
+    else if (n < 0){
+        err_sys("read error");
+    }
+}
+
+
 //echo string
-void _str_echo(int sockfd,int fd1[2],int fd2[2]){
+void _str_echo(int sockfd){
     ssize_t n;
     short i_user_judge = 0;
     char buf[MAXLINE];
