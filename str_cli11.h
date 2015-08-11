@@ -1,13 +1,14 @@
 #include	"lib/unp.h"
 
 void
-str_clii(FILE *fp,char *name ,int sockfd)
+str_clii(FILE *fp ,int sockfd)
 {
 	char	sendline[MAXLINE], recvline[MAXLINE];
 
-  writen(sockfd, name, strlen(name));
-  fputs("Please Enter,and confirm your username!",stdout);
-	while (fgets(sendline, MAXLINE, fp) != NULL) {
+  //writen(sockfd, name, strlen(name));
+  //fputs("Please Enter,and confirm your username!",stdout);
+	
+  while (fgets(sendline, MAXLINE, fp) != NULL) {
 
 		//writen(sockfd, sendline, 1);
 		//sleep(1);

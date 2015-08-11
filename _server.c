@@ -49,21 +49,25 @@ int main(int argc,char **argv){
         exit(1);
     }
 
-    for(;;){    
+        _connfd = accept(_sockfd, (SA *)&cliaddr, &clilen);
+        printf("%d",_connfd); 
+    /*for(;;){    
         clilen = sizeof(cliaddr);
         _connfd = accept(_sockfd, (SA *)&cliaddr, &clilen);
-         if((childpid = fork()) == 0){
+        printf("%d",_connfd); 
+        if((childpid = fork()) == 0){
           if(childpid > 0 ){
               
           }else{
               
           }
           close(_sockfd);
-          str_echo(_connfd);
+          //str_echo(_connfd);
           exit(0);
          }
         close(_connfd);
-    }
+        */
+   // }
 
     return 0;
 }

@@ -7,6 +7,8 @@
 //char *_u_pointer = _user;
 void _str_echo(int sockfd);
 void deal_sockset_echo(int *fd_sockset, int sockfd);
+//int _port = 9999;
+short _count_sock = 0;
 /*
   [1]some message
   [2]some message
@@ -51,6 +53,8 @@ int main(int argc,char **argv){
     //2 p:write c:read
     int pipe_1[2];
     int pipe_2[2];
+    //socket count
+    int _sock_count[256];
     if(pipe(pipe_1) < 0 ){
         perror("pipe");
         exit(1);
@@ -59,18 +63,22 @@ int main(int argc,char **argv){
         perror("pipe");
         exit(1);
     }
-
+    int sock[20];
     for(;;){    
         clilen = sizeof(cliaddr);
         _connfd = accept(_sockfd, (SA *)&cliaddr, &clilen);
          if((childpid = fork()) == 0){
+           //_port++;
+           sock[0] = _connfd;
+
           if(childpid > 0 ){
-              
+           sock[1] = _connfd;   
           }else{
-              
+              err_sys("fork error");
           }
           close(_sockfd);
           //str_echo(_connfd);
+          deal_sockset_echo(sock,_connfd);
           exit(0);
          }
         close(_connfd);
@@ -113,7 +121,7 @@ again_ :
 
 
 //echo string
-void _str_echo(int sockfd){
+/*void _str_echo(int sockfd){
     ssize_t n;
     short i_user_judge = 0;
     char buf[MAXLINE];
@@ -141,7 +149,8 @@ again:
     else if (n < 0){
         err_sys("read error");
     }
-}
+}*/
+
 //!---   LISTENQ MAXIUM
 //void 
 //Listen(int fd, int backlog){
