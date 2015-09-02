@@ -14,3 +14,6 @@ PROBLEM: broadcast udp?   X
 
 实现双人聊天(tcp)
 use: two-PIPE
+
+#### 
+select socket-df
